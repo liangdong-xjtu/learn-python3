@@ -61,6 +61,22 @@ def login_with_salt(username, password):
 def register(username, password):
     db[username] = calc_md5(password + username + 'the-Salt')
 
+# exercise with defaultdict
+from collections import defaultdict
+ddb = defaultdict(lambda : 0)
+
+def register(username, password):
+	ddb[username] = calc_md5(password + username + 'the-Salt')
+
+def login2(username, password):
+	md5_user = calc_md5(password + username + 'the-Salt')
+	if ddb[username] == 0:
+		print('用户名%s不存在' % username)
+	elif md5_user == ddb[username]:
+		print('%s登陆成功' % username)
+	else:
+		print('密码错误，登陆失败')
+
 if __name__ == '__main__':
 # exercise 1
 	#password = input('Please input password:')
@@ -74,8 +90,13 @@ if __name__ == '__main__':
 	username = input('Register a new username now\r\nPlease input your username:')
 	password = input('Please input your password:')
 	register(username, password)
-
 	username = input('Login now\r\nPlease input your username:')
 	password = input('Please input your password:')
 	print('Your password is:',login_with_salt(username, password))
-
+# exercise 4
+	register('michael','123456')
+	register('bob','abc999')
+	register('alice','alice2008')
+	login2('michael.','123456')
+	login2('bob','abc999.')
+	login2('alice','alice2008')
