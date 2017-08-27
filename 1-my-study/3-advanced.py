@@ -44,14 +44,23 @@ L = ['Hello', 'World', 18, 'Apple', None]
 print [s.lower() for s in L if isinstance(s, str)]
 
 # 生成器
+print('######### 生成器 generator:')
+# 如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator
 def fib(max):
     n, a, b = 0, 0, 1
     while n < max:
-	yield b
-	a, b = b, a + b
-	n = n + 1
+        yield b
+        a, b = b, a + b
+        n = n + 1
 for n in fib(10):
-        print n
+    print n
+
+g = (x * x for x in range(10))
+print(g)
+for i in range(10):
+    print(next(g))
+
+print('######### 高阶函数:')
 
 # 函数式编程 高阶函数
 def add(x, y, f):
